@@ -9,12 +9,7 @@ using System.Windows.Forms.VisualStyles;
 
 namespace UTR_APP.Classes
 {
-    enum EmploymentType
-    {
-        Full_time_empl,
-        Hourly_paid_empl
-    }
-    internal class UserClass
+    public class UserClass
     {
         int id; 
         string employeeID; // initials
@@ -25,10 +20,10 @@ namespace UTR_APP.Classes
         string email;
         int deparmentId;
         int employmentId;
-        bool notificationOn;
-        int timeRegTypeId;
+        float hoursFromPrevSystem;
+        public ICollection<UserFavoriteProject> FavoriteProjects { get; set; }
 
-        bool generatedPassword;
+        bool passwordHasBeenChanged;
 
         public int Id { get => id; set => id = value; }
         public string EmployeeID { get => employeeID; set => employeeID = value; }
@@ -38,11 +33,7 @@ namespace UTR_APP.Classes
             set 
             {
                 string specChar = "!@#$%^&*?_-";
-                if (generatedPassword && value.Length >= 8)
-                {
-                    password = value;
-                    generatedPassword = false;
-                } else if(!generatedPassword && value.Length >= 8 &&
+                if(value.Length >= 8 &&
                     value.Any(char.IsDigit) && value.Any(c => specChar.Contains(c)))  
                 { 
                     password = value; 
@@ -89,21 +80,21 @@ namespace UTR_APP.Classes
         }
         public int DeparmentId { get => deparmentId; set => deparmentId = value; }
         public int EmploymentId { get => employmentId; set => employmentId = value; }
-        public bool NotificationOn { get => notificationOn; set => notificationOn = value; }
-        public int TimeRegTypeId { get => timeRegTypeId; set => timeRegTypeId = value; }
+        public float HoursFromPrevSystem { get => hoursFromPrevSystem; set => hoursFromPrevSystem = value; }
 
-        public UserClass(string employeeID, string password, int roleId, string name, int deparmentId, int employmentId)
+
+        public UserClass(string employeeID, string password, int roleId, string name, int deparmentId, int employmentId, float hoursFromPrevSystem)
         { // first time the admin register a new employee
-            generatedPassword = true;
             EmployeeID = employeeID;
             Password = password;
             RoleId = roleId;
             Name = name;
             DeparmentId = deparmentId;
             EmploymentId = employmentId;
+            HoursFromPrevSystem = hoursFromPrevSystem;
         }
 
-        public UserClass(int id, string employeeID, string password, int roleId, string name, string address, string email, int deparmentId, int employmentId, bool notificationOn, int timeRegTypeId)
+        public UserClass(int id, string employeeID, string password, int roleId, string name, string address, string email, int deparmentId, int employmentId, float hoursFromPrevSystem) // int timeRegTypeId)
         { // creating the employee from the database
             Id = id;
             EmployeeID = employeeID;
@@ -114,8 +105,7 @@ namespace UTR_APP.Classes
             Email = email;
             DeparmentId = deparmentId;
             EmploymentId = employmentId;
-            NotificationOn = notificationOn;
-            TimeRegTypeId = timeRegTypeId;
+            HoursFromPrevSystem = hoursFromPrevSystem;
         }
     }
 }

@@ -201,6 +201,7 @@
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -216,16 +217,70 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\DatabaseHandlerClass.cs" />
+    <Compile Include="Classes\Department.cs" />
     <Compile Include="Classes\DesignStatic.cs" />
+    <Compile Include="Classes\EmploymentType.cs" />
     <Compile Include="Classes\FunctionResultClass.cs" />
     <Compile Include="Classes\PasswordHash.cs" />
+    <Compile Include="Classes\Project.cs" />
+    <Compile Include="Classes\RegistratedTime.cs" />
+    <Compile Include="Classes\Role.cs" />
     <Compile Include="Classes\StaticDataClass.cs" />
     <Compile Include="Classes\UserClass.cs" />
-    <Compile Include="Forms\NewEmployeeForm.cs">
+    <Compile Include="Classes\UserFavoriteProject.cs" />
+    <Compile Include="Forms\AdminSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\NewEmployeeForm.Designer.cs">
-      <DependentUpon>NewEmployeeForm.cs</DependentUpon>
+    <Compile Include="Forms\AdminSettingsForm.Designer.cs">
+      <DependentUpon>AdminSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EmployeeOverviewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EmployeeOverviewForm.Designer.cs">
+      <DependentUpon>EmployeeOverviewForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EmployeeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EmployeeForm.Designer.cs">
+      <DependentUpon>EmployeeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\HistoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\HistoryForm.Designer.cs">
+      <DependentUpon>HistoryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ProjectDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProjectDetailForm.Designer.cs">
+      <DependentUpon>ProjectDetailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ProjectOverviewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProjectOverviewForm.Designer.cs">
+      <DependentUpon>ProjectOverviewForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ProjectsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProjectsForm.Designer.cs">
+      <DependentUpon>ProjectsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\StatisticsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\StatisticsForm.Designer.cs">
+      <DependentUpon>StatisticsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TimeRegistrationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TimeRegistrationForm.Designer.cs">
+      <DependentUpon>TimeRegistrationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -247,8 +302,34 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\NewEmployeeForm.resx">
-      <DependentUpon>NewEmployeeForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\AdminSettingsForm.resx">
+      <DependentUpon>AdminSettingsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EmployeeOverviewForm.resx">
+      <DependentUpon>EmployeeOverviewForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EmployeeForm.resx">
+      <DependentUpon>EmployeeForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\HistoryForm.resx">
+      <DependentUpon>HistoryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProjectDetailForm.resx">
+      <DependentUpon>ProjectDetailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProjectOverviewForm.resx">
+      <DependentUpon>ProjectOverviewForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProjectsForm.resx">
+      <DependentUpon>ProjectsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\StatisticsForm.resx">
+      <DependentUpon>StatisticsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TimeRegistrationForm.resx">
+      <DependentUpon>TimeRegistrationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -261,19 +342,19 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -317,6 +398,16 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\unfollow.png" />
+    <None Include="Resources\search %281%29.png" />
+    <None Include="Resources\add %281%29.png" />
+    <None Include="Resources\add-user %282%29.png" />
+    <None Include="Resources\add-file %281%29.png" />
+    <None Include="Resources\add-file %281%291.png" />
+    <None Include="Resources\delete-button.png" />
+    <None Include="Resources\delete-button %281%29.png" />
+    <None Include="Resources\delete-button %282%29.png" />
+    <None Include="Resources\bar-chart.png" />
     <Content Include="Resources\magic-wand.png" />
     <None Include="Resources\magic-wand1.png" />
   </ItemGroup>

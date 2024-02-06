@@ -44,22 +44,20 @@
             this.label2 = new System.Windows.Forms.Label();
             this.fullNameTB = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.sumRB = new System.Windows.Forms.RadioButton();
-            this.periodRB = new System.Windows.Forms.RadioButton();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.removeBtn = new System.Windows.Forms.Button();
+            this.favoriteBtn = new System.Windows.Forms.Button();
+            this.listBox2 = new System.Windows.Forms.ListBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.weeklyNotCheckB = new System.Windows.Forms.CheckBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label10 = new System.Windows.Forms.Label();
             this.newPwd2TB = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.newPwd1TB = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.currentPwdTB = new System.Windows.Forms.TextBox();
             this.closeBtn = new System.Windows.Forms.Button();
             this.saveBtn = new System.Windows.Forms.Button();
             this.errorLbl = new System.Windows.Forms.Label();
@@ -70,7 +68,6 @@
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -79,10 +76,10 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Location = new System.Drawing.Point(10, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(795, 368);
+            this.tabControl1.Size = new System.Drawing.Size(773, 361);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -101,7 +98,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 32);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(787, 332);
+            this.tabPage1.Size = new System.Drawing.Size(765, 325);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic Information";
             // 
@@ -230,78 +227,92 @@
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.tabPage2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tabPage2.Controls.Add(this.sumRB);
-            this.tabPage2.Controls.Add(this.periodRB);
+            this.tabPage2.Controls.Add(this.label13);
+            this.tabPage2.Controls.Add(this.label12);
+            this.tabPage2.Controls.Add(this.removeBtn);
+            this.tabPage2.Controls.Add(this.favoriteBtn);
+            this.tabPage2.Controls.Add(this.listBox2);
             this.tabPage2.Controls.Add(this.label9);
-            this.tabPage2.Controls.Add(this.label8);
-            this.tabPage2.Controls.Add(this.label7);
-            this.tabPage2.Controls.Add(this.weeklyNotCheckB);
+            this.tabPage2.Controls.Add(this.listBox1);
             this.tabPage2.Location = new System.Drawing.Point(4, 32);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(787, 332);
+            this.tabPage2.Size = new System.Drawing.Size(765, 325);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Notification and Registration Settings";
+            this.tabPage2.Text = "Project settings";
             // 
-            // sumRB
+            // label13
             // 
-            this.sumRB.AutoSize = true;
-            this.sumRB.Location = new System.Drawing.Point(553, 142);
-            this.sumRB.Name = "sumRB";
-            this.sumRB.Size = new System.Drawing.Size(162, 24);
-            this.sumRB.TabIndex = 5;
-            this.sumRB.TabStop = true;
-            this.sumRB.Text = "Sum of time - based";
-            this.sumRB.UseVisualStyleBackColor = true;
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(567, 52);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(94, 15);
+            this.label13.TabIndex = 18;
+            this.label13.Text = "Favorite projects";
             // 
-            // periodRB
+            // label12
             // 
-            this.periodRB.AutoSize = true;
-            this.periodRB.Location = new System.Drawing.Point(53, 142);
-            this.periodRB.Name = "periodRB";
-            this.periodRB.Size = new System.Drawing.Size(115, 24);
-            this.periodRB.TabIndex = 4;
-            this.periodRB.TabStop = true;
-            this.periodRB.Text = "Period-based";
-            this.periodRB.UseVisualStyleBackColor = true;
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(91, 53);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(66, 15);
+            this.label12.TabIndex = 17;
+            this.label12.Text = "All projects";
+            // 
+            // removeBtn
+            // 
+            this.removeBtn.Image = global::UTR_APP.Properties.Resources.delete_button__2_;
+            this.removeBtn.Location = new System.Drawing.Point(301, 131);
+            this.removeBtn.Name = "removeBtn";
+            this.removeBtn.Size = new System.Drawing.Size(162, 32);
+            this.removeBtn.TabIndex = 16;
+            this.removeBtn.Text = "Remove";
+            this.removeBtn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.removeBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.removeBtn.UseVisualStyleBackColor = true;
+            this.removeBtn.Click += new System.EventHandler(this.removeBtn_Click);
+            // 
+            // favoriteBtn
+            // 
+            this.favoriteBtn.Image = global::UTR_APP.Properties.Resources.add__1_;
+            this.favoriteBtn.Location = new System.Drawing.Point(301, 84);
+            this.favoriteBtn.Name = "favoriteBtn";
+            this.favoriteBtn.Size = new System.Drawing.Size(162, 32);
+            this.favoriteBtn.TabIndex = 15;
+            this.favoriteBtn.Text = "Add";
+            this.favoriteBtn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.favoriteBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.favoriteBtn.UseVisualStyleBackColor = true;
+            this.favoriteBtn.Click += new System.EventHandler(this.favoriteBtn_Click);
+            // 
+            // listBox2
+            // 
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.ItemHeight = 20;
+            this.listBox2.Location = new System.Drawing.Point(508, 71);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(229, 224);
+            this.listBox2.TabIndex = 5;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 106);
+            this.label9.Location = new System.Drawing.Point(12, 10);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(156, 20);
-            this.label9.TabIndex = 3;
-            this.label9.Text = "Time registration style";
+            this.label9.Size = new System.Drawing.Size(170, 20);
+            this.label9.TabIndex = 4;
+            this.label9.Text = "Choose favorite projects";
             // 
-            // label8
+            // listBox1
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(203, 51);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(91, 15);
-            this.label8.TabIndex = 2;
-            this.label8.Text = "(Email required)";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 14);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(357, 20);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "Weekly notification about sum of hours and statistics";
-            // 
-            // weeklyNotCheckB
-            // 
-            this.weeklyNotCheckB.AutoSize = true;
-            this.weeklyNotCheckB.Location = new System.Drawing.Point(16, 48);
-            this.weeklyNotCheckB.Name = "weeklyNotCheckB";
-            this.weeklyNotCheckB.Size = new System.Drawing.Size(155, 24);
-            this.weeklyNotCheckB.TabIndex = 0;
-            this.weeklyNotCheckB.Text = "Weekly notification";
-            this.weeklyNotCheckB.UseVisualStyleBackColor = true;
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 20;
+            this.listBox1.Location = new System.Drawing.Point(23, 73);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(229, 224);
+            this.listBox1.TabIndex = 3;
             // 
             // tabPage3
             // 
@@ -309,23 +320,20 @@
             this.tabPage3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tabPage3.Controls.Add(this.pictureBox3);
             this.tabPage3.Controls.Add(this.pictureBox2);
-            this.tabPage3.Controls.Add(this.pictureBox1);
             this.tabPage3.Controls.Add(this.label10);
             this.tabPage3.Controls.Add(this.newPwd2TB);
             this.tabPage3.Controls.Add(this.label11);
             this.tabPage3.Controls.Add(this.newPwd1TB);
-            this.tabPage3.Controls.Add(this.label12);
-            this.tabPage3.Controls.Add(this.currentPwdTB);
             this.tabPage3.Location = new System.Drawing.Point(4, 32);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(787, 332);
+            this.tabPage3.Size = new System.Drawing.Size(765, 325);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Password Change";
             // 
             // pictureBox3
             // 
             this.pictureBox3.Image = global::UTR_APP.Properties.Resources.view;
-            this.pictureBox3.Location = new System.Drawing.Point(414, 213);
+            this.pictureBox3.Location = new System.Drawing.Point(412, 140);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(29, 26);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -336,7 +344,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::UTR_APP.Properties.Resources.view;
-            this.pictureBox2.Location = new System.Drawing.Point(414, 129);
+            this.pictureBox2.Location = new System.Drawing.Point(412, 56);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(29, 26);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -344,21 +352,10 @@
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::UTR_APP.Properties.Resources.view;
-            this.pictureBox1.Location = new System.Drawing.Point(414, 46);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(29, 26);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 16;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(21, 189);
+            this.label10.Location = new System.Drawing.Point(19, 116);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(150, 20);
             this.label10.TabIndex = 13;
@@ -367,7 +364,7 @@
             // newPwd2TB
             // 
             this.newPwd2TB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.newPwd2TB.Location = new System.Drawing.Point(21, 212);
+            this.newPwd2TB.Location = new System.Drawing.Point(19, 139);
             this.newPwd2TB.Name = "newPwd2TB";
             this.newPwd2TB.Size = new System.Drawing.Size(377, 27);
             this.newPwd2TB.TabIndex = 12;
@@ -376,7 +373,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(21, 105);
+            this.label11.Location = new System.Drawing.Point(19, 32);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(107, 20);
             this.label11.TabIndex = 11;
@@ -385,29 +382,11 @@
             // newPwd1TB
             // 
             this.newPwd1TB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.newPwd1TB.Location = new System.Drawing.Point(21, 128);
+            this.newPwd1TB.Location = new System.Drawing.Point(19, 55);
             this.newPwd1TB.Name = "newPwd1TB";
             this.newPwd1TB.Size = new System.Drawing.Size(377, 27);
             this.newPwd1TB.TabIndex = 10;
             this.newPwd1TB.UseSystemPasswordChar = true;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(21, 23);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(125, 20);
-            this.label12.TabIndex = 9;
-            this.label12.Text = "Current Password:";
-            // 
-            // currentPwdTB
-            // 
-            this.currentPwdTB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.currentPwdTB.Enabled = false;
-            this.currentPwdTB.Location = new System.Drawing.Point(21, 46);
-            this.currentPwdTB.Name = "currentPwdTB";
-            this.currentPwdTB.Size = new System.Drawing.Size(377, 27);
-            this.currentPwdTB.TabIndex = 8;
             // 
             // closeBtn
             // 
@@ -425,7 +404,7 @@
             // saveBtn
             // 
             this.saveBtn.Image = global::UTR_APP.Properties.Resources.floppy_disk;
-            this.saveBtn.Location = new System.Drawing.Point(644, 415);
+            this.saveBtn.Location = new System.Drawing.Point(636, 415);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(147, 38);
             this.saveBtn.TabIndex = 12;
@@ -472,7 +451,6 @@
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -496,24 +474,22 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton sumRB;
-        private System.Windows.Forms.RadioButton periodRB;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.CheckBox weeklyNotCheckB;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox newPwd2TB;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox newPwd1TB;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox currentPwdTB;
         private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Button closeBtn;
         private System.Windows.Forms.Button saveBtn;
         private System.Windows.Forms.Label errorLbl;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.Button removeBtn;
+        private System.Windows.Forms.Button favoriteBtn;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox newPwd1TB;
     }
 }

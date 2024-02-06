@@ -16,9 +16,22 @@ namespace UTR_APP.Forms
     {
         bool hidePassword1, hidePassword2, hidePassword3 = true;
         public bool passwordChanged = false;
+
+        List<Project> allProject = new List<Project>();
+        List<UserFavoriteProject> favoriteProjects = new List<UserFavoriteProject>();
+
+        public List<UserFavoriteProject> AddedProjects { get; private set; }
+        public List<UserFavoriteProject> DeletedProjects { get; private set; }
+
+        public bool FavoriteListChanged { get; private set; }
+
+
         public SettingsForm()
         {
             InitializeComponent();
+            StaticDataClass.favoriteProjects = DatabaseHandlerClass.AllFavoriteProjects();
+            favoriteProjects = DatabaseHandlerClass.AllFavoriteProjects();
+            FavoriteListChanged = false;
             Fill_Up_UserData();
         }
 
@@ -29,35 +42,32 @@ namespace UTR_APP.Forms
             adressTB.Text = StaticDataClass.loggedInUser.Address;
             emailTB.Text = StaticDataClass.loggedInUser.Email;
             emplyeeIDTB.Text = StaticDataClass.loggedInUser.EmployeeID;
-            emplTypeCB.DataSource = new BindingSource(StaticDataClass.employmentTypes, null);
+            emplTypeCB.DataSource = StaticDataClass.employmentTypes;
             if (StaticDataClass.employmentTypes.Count > 0)
             {
-                emplTypeCB.DisplayMember = "Value"; // selectedvalue going to use the ID
-                emplTypeCB.ValueMember = "Key";
+                emplTypeCB.DisplayMember = "Name"; // selectedvalue going to use the ID
+                emplTypeCB.ValueMember = "ID";
+                emplTypeCB.DataSource = StaticDataClass.employmentTypes;
             }
             emplTypeCB.SelectedValue = StaticDataClass.loggedInUser.EmploymentId;
 
-            departmentCB.DataSource = new BindingSource(StaticDataClass.departmentTypes, null);
+            departmentCB.DataSource = StaticDataClass.departmentTypes;
             if (StaticDataClass.departmentTypes.Count > 0)
             {
-                departmentCB.DisplayMember = "Value";
-                departmentCB.ValueMember = "Key";
+                departmentCB.DisplayMember = "Name";
+                departmentCB.ValueMember = "ID";
+                departmentCB.DataSource = StaticDataClass.departmentTypes;
             }
-            departmentCB.SelectedValue = StaticDataClass.loggedInUser.DeparmentId;
+           
 
-            weeklyNotCheckB.Checked = StaticDataClass.loggedInUser.NotificationOn;
-            periodRB.Checked = StaticDataClass.loggedInUser.TimeRegTypeId == 1;
-            sumRB.Checked = StaticDataClass.loggedInUser.TimeRegTypeId == 2;
+            allProject = StaticDataClass.projects
+                    .Where(p => !StaticDataClass.favoriteProjects.Any(fp => fp.ProjectId == p.Id)).ToList();
+           
+            listBox1.DataSource = allProject;
 
-            currentPwdTB.Text = StaticDataClass.loggedInUser.Password;
+            listBox2.DataSource = StaticDataClass.projects
+                    .Where(p => favoriteProjects.Any(fp => fp.ProjectId == p.Id)).ToList();
 
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            hidePassword1 = !hidePassword1;
-            pictureBox1.Image = hidePassword1 ? Resources.view : Resources.hide;
-            currentPwdTB.UseSystemPasswordChar = hidePassword1;
         }
 
         private void closeBtn_Click(object sender, EventArgs e)
@@ -85,26 +95,25 @@ namespace UTR_APP.Forms
                 }
                 else
                 {
-                    errorLbl.Text = "The new passwords are not the same.";
+                    errorLbl.Text += "The new passwords are not the same.";
                     return;
                 }
             }
 
-            if (weeklyNotCheckB.Checked && emailTB.Text == string.Empty)
-            {
-                errorLbl.Text = "Email must be provided for weekly notification.";
+            if (passwordChanged && DatabaseHandlerClass.PasswordMatches(StaticDataClass.loggedInUser.EmployeeID.ToString(), StaticDataClass.loggedInUser.Password).Result)
+            { // password changed and match with the previous one - saved in db
+                errorLbl.Text = "Password cannot be the same as before.";
                 return;
             }
 
-
+            AddedProjects = favoriteProjects.Except(StaticDataClass.favoriteProjects).ToList();
+            DeletedProjects = StaticDataClass.favoriteProjects.Except(favoriteProjects).ToList();
+  
             try
             {
                 StaticDataClass.loggedInUser.Name = fullNameTB.Text;
                 StaticDataClass.loggedInUser.Address = adressTB.Text;
-                StaticDataClass.loggedInUser.Email = emailTB.Text;
-                StaticDataClass.loggedInUser.NotificationOn = weeklyNotCheckB.Checked;                
-                StaticDataClass.loggedInUser.TimeRegTypeId = periodRB.Checked ? 1 : 2;
-
+                StaticDataClass.loggedInUser.Email = emailTB.Text;            
             }
             catch (Exception ex)
             {
@@ -114,6 +123,59 @@ namespace UTR_APP.Forms
 
             DialogResult = DialogResult.OK;
             this.Close();
+        }
+
+        private void favoriteBtn_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedIndex > -1)
+            {
+                if (!listBox2.Items.Contains(listBox1.SelectedItems))
+                {
+                    favoriteProjects.Add(new UserFavoriteProject(StaticDataClass.loggedInUser.Id, (listBox1.SelectedItem as Project).Id));
+                    allProject.RemoveAt(listBox1.SelectedIndex);
+                    Listbox_Project_Update();
+                    FavoriteListChanged = true;
+                } else
+                {
+                    errorLbl.Text = "The project is already added to favorites";
+                }              
+                
+            } else
+            {
+                errorLbl.Text = "No element were chosen";
+            }
+        }
+
+        private void Listbox_Project_Update()
+        {
+            listBox1.DataSource = null;
+            listBox2.DataSource = null;
+            listBox2.DataSource = StaticDataClass.projects
+                    .Where(p => favoriteProjects.Any(fp => fp.ProjectId == p.Id)).ToList();
+            listBox1.DataSource = allProject;
+        }
+
+        private void removeBtn_Click(object sender, EventArgs e)
+        {
+            if (listBox2.SelectedIndex > -1)
+            {
+                if (!listBox1.Items.Contains(listBox1.SelectedItems))
+                {
+                    allProject.Add(listBox2.SelectedItem as Project);
+                    favoriteProjects.RemoveAt(listBox2.SelectedIndex);
+                    Listbox_Project_Update();
+                    FavoriteListChanged = true;
+                }
+                else
+                {
+                    errorLbl.Text = "The project is already removed from favorites";
+                }
+
+            }
+            else
+            {
+                errorLbl.Text = "No element were chosen";
+            }
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
