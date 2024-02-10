@@ -98,6 +98,7 @@ namespace UTR_APP.Forms
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
+            bool OkToContinue = true;
             if (departmentDGRowAdded)
             {
                 try
@@ -107,7 +108,8 @@ namespace UTR_APP.Forms
                     {
                         object objectId = departmentDG.Rows[i].Cells[0].Value;
                         int id = objectId == null ? 0 : Convert.ToInt32(objectId);
-                        Department newDepartment = new Department(id, (departmentDG.Rows[i].Cells[1].Value as string), (departmentDG.Rows[i].Cells[2].Value as string));
+                        string desc = (departmentDG.Rows[i].Cells[2].Value as string) == null ? "" : (departmentDG.Rows[i].Cells[2].Value as string);
+                        Department newDepartment = new Department(id, (departmentDG.Rows[i].Cells[1].Value as string), desc);
                         list.Add(newDepartment);
                     }
 
@@ -118,16 +120,16 @@ namespace UTR_APP.Forms
                         if (!result.Result)
                         {
                             errorLbl.Text += result.Message;
+                            OkToContinue = false;
                         }
                     }
                     StaticDataClass.departmentTypes = DatabaseHandlerClass.GetDepartmentTypes();
-
-                    DialogResult = DialogResult.OK;
 
                 }
                 catch (Exception ex)
                 {
                     errorLbl.Text += ex.Message + Environment.NewLine;
+                    OkToContinue = false;
                 }
             }
 
@@ -140,7 +142,8 @@ namespace UTR_APP.Forms
                     {
                         object objectId = roleDG.Rows[i].Cells[0].Value;
                         int id = objectId == null ? 0 : Convert.ToInt32(objectId);
-                        Role newRole = new Role(id, (roleDG.Rows[i].Cells[1].Value as string), (roleDG.Rows[i].Cells[2].Value as string));
+                        string desc = (roleDG.Rows[i].Cells[2].Value as string) == null ? "" : (roleDG.Rows[i].Cells[2].Value as string);
+                        Role newRole = new Role(id, (roleDG.Rows[i].Cells[1].Value as string),desc);
                         list.Add(newRole);
                     }
 
@@ -151,16 +154,16 @@ namespace UTR_APP.Forms
                         if (!result.Result)
                         {
                             errorLbl.Text += result.Message;
+                            OkToContinue = false;
                         }
                     }
                     StaticDataClass.roleTypes = DatabaseHandlerClass.GetRoleTypes();
-
-                    DialogResult = DialogResult.OK;
 
                 }
                 catch (Exception ex)
                 {
                     errorLbl.Text += ex.Message + Environment.NewLine;
+                    OkToContinue = false;
                 }
 
             }
@@ -175,7 +178,8 @@ namespace UTR_APP.Forms
                     {
                         object objectId = emplTypesDG.Rows[i].Cells[0].Value;
                         int id = objectId == null ? 0 : Convert.ToInt32(objectId);
-                        EmploymentType newEmpl = new EmploymentType(id, (emplTypesDG.Rows[i].Cells[1].Value as string), (emplTypesDG.Rows[i].Cells[2].Value as string));
+                        string desc = (emplTypesDG.Rows[i].Cells[2].Value as string) == null ? "" : (emplTypesDG.Rows[i].Cells[2].Value as string);
+                        EmploymentType newEmpl = new EmploymentType(id, (emplTypesDG.Rows[i].Cells[1].Value as string),desc);
                         list.Add(newEmpl);
                     }
 
@@ -186,17 +190,22 @@ namespace UTR_APP.Forms
                         if (!result.Result)
                         {
                             errorLbl.Text += result.Message;
+                            OkToContinue = false;
                         }
                     }
                     StaticDataClass.employmentTypes = DatabaseHandlerClass.GetEmploymentTypes();
-
-                    DialogResult = DialogResult.OK;
 
                 }
                 catch (Exception ex)
                 {
                     errorLbl.Text += ex.Message + Environment.NewLine;
+                    OkToContinue = false;
                 }
+            }
+
+            if (OkToContinue)
+            {
+                DialogResult = DialogResult.OK;
             }
         }
 

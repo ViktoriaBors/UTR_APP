@@ -22,6 +22,7 @@ namespace UTR_APP.Forms
             errorLbl.Text = string.Empty;
             deleteBtn.Enabled = false;
             deleteBtn.Visible = false;
+            Project = null;
             DepartmentCB_Update();
         }
 
@@ -83,7 +84,7 @@ namespace UTR_APP.Forms
                 catch (Exception ex)
                 {
                     errorLbl.Text = string.Empty;
-                    errorLbl.Text = "The new user could not be created because of the following: " + Environment.NewLine + ex.Message;
+                    errorLbl.Text = "The new project could not be created because of the following: " + Environment.NewLine + ex.Message;
                 }
             }
             else // a given project data is changed

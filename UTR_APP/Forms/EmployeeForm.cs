@@ -125,7 +125,14 @@ namespace UTR_APP.Forms
 
             for (int i = 0; i < nameArray.Length; i++)
             {
-                ID += nameArray[i].Substring(0,2);
+                if (nameArray[i].Length >= 2)
+                {
+                    ID += nameArray[i].Substring(0, 2);
+                } else
+                {
+                    ID += nameArray[i].Substring(0, 1);
+                }
+                
             }
             return ID;            
         }
@@ -143,6 +150,13 @@ namespace UTR_APP.Forms
                 try
                 {
                     User = new UserClass(emplyeeIDTB.Text, passwordTB.Text, (int)roleTypesCB.SelectedValue, fullNameTB.Text, (int)departmentCB.SelectedValue, (int)emplTypeCB.SelectedValue, (float)numericUpDown1.Value);
+                    FunctionResult existingEmplID = DatabaseHandlerClass.UserExists(emplyeeIDTB.Text);
+                    if (existingEmplID.Result)
+                    {
+                        errorLbl.Text = "This employeeId is alredy exist. Add an extra charachter to the name field.";
+                        return;
+                    }
+
                     FunctionResult registerNewUser = DatabaseHandlerClass.RegistrationOfNewEmployee(User);
                     if (registerNewUser.Result)
                     {

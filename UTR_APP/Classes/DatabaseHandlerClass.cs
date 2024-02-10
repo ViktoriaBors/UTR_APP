@@ -74,10 +74,8 @@ namespace UTR_APP.Classes
 
                             if (result.Result) // password also matched
                             {
-                                int departmentId = reader.IsDBNull(7) ? 0 : reader.GetInt32(7);
-                                int employmentId = reader.IsDBNull(8) ? 0 : reader.GetInt32(8);
                                 StaticDataClass.loggedInUser = new UserClass(reader.GetInt32(0), reader.GetString(1), "hahaha_0", reader.GetInt32(3),
-                                    reader.GetString(4), reader.GetString(5), reader.GetString(6), departmentId, employmentId, reader.GetFloat(9));
+                                    reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetInt32(7), reader.GetInt32(8), reader.GetFloat(9));
                                 StaticDataClass.UsersFlexHoursFromPrevSystem = StaticDataClass.loggedInUser.HoursFromPrevSystem;
                             }
 
@@ -103,7 +101,6 @@ namespace UTR_APP.Classes
             string query = "INSERT INTO `users` " +
                     "(ID, employeeID, password, roleID, name, address, email, departmentID, employmentID, hoursFromPrevSystem, created) " +
                     " VALUES(@id, @employeeId, @pass,@roleId, @name, @address,@email, @departmentId, @employmentId, @hoursFromPrevSystem,  @created)";
-
             try
             {
                 connection.Open();
@@ -341,11 +338,11 @@ namespace UTR_APP.Classes
                 string query = string.Empty;
                 if (exist)
                 {
-                    query = "UPDATE `employmenttype` SET ID = @id, name = @name, description= @desc WHERE ID=@id ";
+                    query = "UPDATE `employmenttypes` SET ID = @id, name = @name, description= @desc WHERE ID=@id ";
                 }
                 else
                 {
-                    query = "INSERT INTO `employmenttype` (ID, name, description) VALUES(@id,@name,@desc)";
+                    query = "INSERT INTO `employmenttypes` (ID, name, description) VALUES(@id,@name,@desc)";
                 }
 
                 using (MySqlCommand cmd = new MySqlCommand(query, connection))
@@ -650,7 +647,7 @@ namespace UTR_APP.Classes
 
                 using (MySqlCommand cmd = new MySqlCommand("INSERT INTO `projects` " +
                     "(ID, name, description, isactive, departmentID ) " +
-                    " VALUES(@id, @name, @desc,, @active, @departmentId)", connection))
+                    " VALUES(@id, @name, @desc, @active, @departmentId)", connection))
                 {
                     cmd.Parameters.AddWithValue("@id", 0);
                     cmd.Parameters.AddWithValue("@name", project.Name);

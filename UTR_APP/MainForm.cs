@@ -39,36 +39,39 @@ namespace UTR_APP
 
             bool forgottenRegistration = false;
 
-            StaticDataClass.workedHours = DatabaseHandlerClass.AllRegisteredHoursByUser(StaticDataClass.DateTime_Converter(DateTime.Today.AddDays(-1)));
-            if (DateTime.Today.DayOfWeek == DayOfWeek.Monday)
+            if (StaticDataClass.loggedInUser.EmployeeID != "Admin")
             {
-                string dateFriday = StaticDataClass.DateTime_Converter(DateTime.Today.AddDays(-3));
-                StaticDataClass.workedHours = DatabaseHandlerClass.AllRegisteredHoursByUser(dateFriday);
-
-                if (StaticDataClass.workedHours.Count == 0)
+                StaticDataClass.workedHours = DatabaseHandlerClass.AllRegisteredHoursByUser(StaticDataClass.DateTime_Converter(DateTime.Today.AddDays(-1)));
+                if (DateTime.Today.DayOfWeek == DayOfWeek.Monday)
                 {
-                    forgottenRegistration = true;
-                }
-            }
+                    string dateFriday = StaticDataClass.DateTime_Converter(DateTime.Today.AddDays(-3));
+                    StaticDataClass.workedHours = DatabaseHandlerClass.AllRegisteredHoursByUser(dateFriday);
 
-            if (DateTime.Today.DayOfWeek != DayOfWeek.Monday && DateTime.Today.DayOfWeek != DayOfWeek.Sunday && DateTime.Today.DayOfWeek != DayOfWeek.Saturday)
-            {
-                string yesterday = StaticDataClass.DateTime_Converter(DateTime.Today.AddDays(-1));
-                StaticDataClass.workedHours = DatabaseHandlerClass.AllRegisteredHoursByUser(yesterday);
-                if (StaticDataClass.workedHours.Count == 0)
-                {
-                    forgottenRegistration=true;
-                }
-            }
-            StaticDataClass.workedHours = new List<RegistratedTime>();
+                    if (StaticDataClass.workedHours.Count == 0)
+                    {
+                        forgottenRegistration = true;
+                    }
 
-            if (forgottenRegistration)
-            {
-                if (MessageBox.Show("It looks like you forgot to register you working hours from last working day. Do you want to register now?", "Missing hours registration", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    new TimeRegistrationForm().ShowDialog();
+                    if (DateTime.Today.DayOfWeek != DayOfWeek.Monday && DateTime.Today.DayOfWeek != DayOfWeek.Sunday && DateTime.Today.DayOfWeek != DayOfWeek.Saturday)
+                    {
+                        string yesterday = StaticDataClass.DateTime_Converter(DateTime.Today.AddDays(-1));
+                        StaticDataClass.workedHours = DatabaseHandlerClass.AllRegisteredHoursByUser(yesterday);
+                        if (StaticDataClass.workedHours.Count == 0)
+                        {
+                            forgottenRegistration = true;
+                        }
+                    }
+                    StaticDataClass.workedHours = new List<RegistratedTime>();
+
+                    if (forgottenRegistration)
+                    {
+                        if (MessageBox.Show("It looks like you forgot to register you working hours from last working day. Do you want to register now?", "Missing hours registration", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        {
+                            new TimeRegistrationForm().ShowDialog();
+                        }
+                    }
                 }
-            }          
+            }       
          
         }
 
@@ -146,6 +149,41 @@ namespace UTR_APP
                 this.Show();
                 CheckAdminStatus();
             }
+            bool forgottenRegistration = false;
+
+            if (StaticDataClass.loggedInUser.EmployeeID != "Admin")
+            {
+                StaticDataClass.workedHours = DatabaseHandlerClass.AllRegisteredHoursByUser(StaticDataClass.DateTime_Converter(DateTime.Today.AddDays(-1)));
+                if (DateTime.Today.DayOfWeek == DayOfWeek.Monday)
+                {
+                    string dateFriday = StaticDataClass.DateTime_Converter(DateTime.Today.AddDays(-3));
+                    StaticDataClass.workedHours = DatabaseHandlerClass.AllRegisteredHoursByUser(dateFriday);
+
+                    if (StaticDataClass.workedHours.Count == 0)
+                    {
+                        forgottenRegistration = true;
+                    }
+
+                    if (DateTime.Today.DayOfWeek != DayOfWeek.Monday && DateTime.Today.DayOfWeek != DayOfWeek.Sunday && DateTime.Today.DayOfWeek != DayOfWeek.Saturday)
+                    {
+                        string yesterday = StaticDataClass.DateTime_Converter(DateTime.Today.AddDays(-1));
+                        StaticDataClass.workedHours = DatabaseHandlerClass.AllRegisteredHoursByUser(yesterday);
+                        if (StaticDataClass.workedHours.Count == 0)
+                        {
+                            forgottenRegistration = true;
+                        }
+                    }
+                    StaticDataClass.workedHours = new List<RegistratedTime>();
+
+                    if (forgottenRegistration)
+                    {
+                        if (MessageBox.Show("It looks like you forgot to register you working hours from last working day. Do you want to register now?", "Missing hours registration", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        {
+                            new TimeRegistrationForm().ShowDialog();
+                        }
+                    }
+                }
+            }
         }
 
         private void CheckAdminStatus()
@@ -164,6 +202,9 @@ namespace UTR_APP
             if (StaticDataClass.loggedInUser.EmployeeID == "Admin")
             {
                 groupBox1.Enabled = false;
+            } else
+            {
+                groupBox1.Enabled= true;
             }
 
         }

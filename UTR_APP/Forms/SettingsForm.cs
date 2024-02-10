@@ -58,7 +58,8 @@ namespace UTR_APP.Forms
                 departmentCB.ValueMember = "ID";
                 departmentCB.DataSource = StaticDataClass.departmentTypes;
             }
-           
+            departmentCB.SelectedValue = StaticDataClass.loggedInUser.DeparmentId;
+
 
             allProject = StaticDataClass.projects
                     .Where(p => !StaticDataClass.favoriteProjects.Any(fp => fp.ProjectId == p.Id)).ToList();

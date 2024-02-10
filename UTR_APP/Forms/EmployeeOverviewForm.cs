@@ -28,9 +28,13 @@ namespace UTR_APP.Forms
         private void DataGridView_Update(List<UserClass> users)
         {
             employeeDG.Rows.Clear();
+            
             foreach (UserClass user in users) // update coloumn/rows manually
             {
-                object[] rowData = { user.EmployeeID, user.Name, StaticDataClass.departmentTypes.Find(data => data.Id ==user.DeparmentId).Name, StaticDataClass.employmentTypes.Find(data => data.Id == user.EmploymentId).Name, StaticDataClass.roleTypes.Find(data => data.Id == user.RoleId).Name };
+                string depName = StaticDataClass.departmentTypes.Find(data => data.Id == user.DeparmentId) == null ? "-" : StaticDataClass.departmentTypes.Find(data => data.Id == user.DeparmentId).Name;
+                string emplName = StaticDataClass.employmentTypes.Find(data => data.Id == user.EmploymentId) == null ? "-" : StaticDataClass.employmentTypes.Find(data => data.Id == user.EmploymentId).Name;
+                string roleName = StaticDataClass.roleTypes.Find(data => data.Id == user.RoleId) == null ? "-" : StaticDataClass.roleTypes.Find(data => data.Id == user.RoleId).Name;
+                object[] rowData = { user.EmployeeID, user.Name, depName , emplName, roleName  };
                 employeeDG.Rows.Add(rowData);
             }
         }
