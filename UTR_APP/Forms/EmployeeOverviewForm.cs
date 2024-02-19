@@ -20,7 +20,7 @@ namespace UTR_APP.Forms
             InitializeComponent();
             StaticDataClass.users = DatabaseHandlerClass.AllUsers();
             if (StaticDataClass.users.Count > 0)
-            {
+            {              
                 DataGridView_Update(StaticDataClass.users);
             }
         }

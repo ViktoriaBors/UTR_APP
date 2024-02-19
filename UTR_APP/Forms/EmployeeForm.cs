@@ -1,16 +1,7 @@
-﻿using MySqlX.XDevAPI.Common;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using UTR_APP.Classes;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace UTR_APP.Forms
 {

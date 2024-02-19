@@ -23,8 +23,8 @@ namespace UTR_APP.Forms
         {
             InitializeComponent();
             CB_Update();
-            startDate = DateTime.Now;
-            endDate = DateTime.Now;
+            startDate = DateTime.Today;
+            endDate = DateTime.Today;
             fromDatePicker.Value = startDate;
             toDatePicker.Value = endDate;
 

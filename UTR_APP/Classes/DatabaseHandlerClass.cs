@@ -1,14 +1,7 @@
-﻿using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI.Common;
+﻿using MySqlConnector;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Data;
 
 namespace UTR_APP.Classes
 {
@@ -266,8 +259,11 @@ namespace UTR_APP.Classes
                     {
                         while (reader.Read())
                         {
-                            result.Add(new UserClass(reader.GetInt32(0), reader.GetString(1), "hahaha_0", reader.GetInt32(3),
-                                    reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetInt32(7), reader.GetInt32(8), reader.GetInt32(9)));
+                            if (reader.GetInt32(0) != StaticDataClass.loggedInUser.Id)
+                            {
+                                result.Add(new UserClass(reader.GetInt32(0), reader.GetString(1), "hahaha_0", reader.GetInt32(3),
+                                                                   reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetInt32(7), reader.GetInt32(8), reader.GetFloat(9)));
+                            }                           
                         }
                     }
                 }

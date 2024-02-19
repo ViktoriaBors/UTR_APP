@@ -1,13 +1,7 @@
-﻿using MySqlX.XDevAPI.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Data.SqlTypes;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using UTR_APP.Classes;
 
@@ -98,10 +92,16 @@ namespace UTR_APP.Forms
             }
 
             float modulo = (float)numericUpDown1.Value % 0.25F;
-            if ( (int)modulo != 0 || (int)numericUpDown1.Value == 0)
+            if ( (int)modulo != 0)
             {
                 OkToContinue = false;
                 errorLbl.Text += "Given hours is not in acceptable format. It must be a multiple of 0.25.";
+            }
+
+            if ((float)numericUpDown1.Value  <= 0F)
+            {
+                OkToContinue = false;
+                errorLbl.Text += "Given hours cannot be 0.";
             }
 
             if (!OkToContinue)
