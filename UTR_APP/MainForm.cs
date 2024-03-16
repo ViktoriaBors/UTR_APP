@@ -126,7 +126,7 @@ namespace UTR_APP
 
                     if (error.Length > 0)
                     {
-                        MessageBox.Show(error, "Error savind data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(error, "Error saving data", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }               
             }

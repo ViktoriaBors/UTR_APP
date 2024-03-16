@@ -10,13 +10,14 @@ namespace UTR_APP.Forms
     public partial class TimeRegistrationForm : Form
     {
         public RegistratedTime CurrentRegistratedTime { get; private set; }
-
+        float workedHours = 0;
         int chosenRegistratedTimeIndex = -1;
         public TimeRegistrationForm()
         {
             InitializeComponent();
             UI_Update(DateTime.Today);
             DataGrid_Update();
+            StaticDataClass.favoriteProjects = DatabaseHandlerClass.AllFavoriteProjects();
         }
         
         private void DataGrid_Update()
@@ -53,7 +54,10 @@ namespace UTR_APP.Forms
                 descTB.Text = string.Empty;
             }
 
-           dateTimePicker1.MaxDate = DateTime.Today;
+            dateTimePicker1.MaxDate = DateTime.Today;
+            workedHoursLbl.Text = "Worked hours: " + StaticDataClass.workedHours.Sum(hours => hours.Hours);
+            comboBox1.DataSource = null;
+            comboBox1.DataSource = checkBox1.Checked ? StaticDataClass.projects.Where(p => StaticDataClass.favoriteProjects.Any(fp => fp.ProjectId == p.Id)).ToList() : StaticDataClass.projects;
         }
 
         private void closeBtn_Click(object sender, EventArgs e)
@@ -67,7 +71,7 @@ namespace UTR_APP.Forms
             bool success = true;
             if (MessageBox.Show("Are you sure everything is right?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
             {
-                List<FunctionResult> saveWorkedHours = DatabaseHandlerClass.SaveUpdateHours();
+                List<FunctionResult> saveWorkedHours = DatabaseHandlerClass.SaveUpdateHours(StaticDataClass.workedHours);
 
                 foreach (FunctionResult item in saveWorkedHours)
                 {
@@ -113,7 +117,7 @@ namespace UTR_APP.Forms
             {
                 try
                 {
-                    StaticDataClass.workedHours.Add(new RegistratedTime(0, StaticDataClass.loggedInUser.Id, (comboBox1.SelectedItem as Project).Id, descTB.Text, (float)numericUpDown1.Value, dateTimePicker1.Value,false));
+                    StaticDataClass.workedHours.Add(new RegistratedTime(0, StaticDataClass.loggedInUser.Id, (comboBox1.SelectedItem as Project).Id, descTB.Text, (float)numericUpDown1.Value, dateTimePicker1.Value,false, false));  
                     UI_Update(date);
                     DataGrid_Update();
                 }
@@ -151,6 +155,7 @@ namespace UTR_APP.Forms
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             StaticDataClass.workedHours = DatabaseHandlerClass.AllRegisteredHoursByUser(StaticDataClass.DateTime_Converter(dateTimePicker1.Value));
+            UI_Update(dateTimePicker1.Value);
             DataGrid_Update();
         }
 

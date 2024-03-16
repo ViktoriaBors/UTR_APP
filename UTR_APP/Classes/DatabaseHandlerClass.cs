@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace UTR_APP.Classes
 {
@@ -68,7 +69,7 @@ namespace UTR_APP.Classes
                             if (result.Result) // password also matched
                             {
                                 StaticDataClass.loggedInUser = new UserClass(reader.GetInt32(0), reader.GetString(1), "hahaha_0", reader.GetInt32(3),
-                                    reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetInt32(7), reader.GetInt32(8), reader.GetFloat(9));
+                                    reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetInt32(7), reader.GetInt32(8), reader.GetFloat(9), reader.GetDateTime(11));
                                 StaticDataClass.UsersFlexHoursFromPrevSystem = StaticDataClass.loggedInUser.HoursFromPrevSystem;
                             }
 
@@ -133,19 +134,26 @@ namespace UTR_APP.Classes
         {
             FunctionResult result = new FunctionResult();
 
-            string query = "DELETE FROM `users` WHERE ID = @id";
+            string query1 = "DELETE FROM `users` WHERE ID = @id";
+            string query2 = "DELETE FROM `userfavoriteprojects` WHERE userID = @id";
 
             try
             {
                 connection.Open();
+                using (MySqlCommand cmd = new MySqlCommand(query2, connection))
+                {
+                    cmd.Parameters.AddWithValue("@id", User.Id);
+                    result.Result = cmd.ExecuteNonQuery() > 0;
+                }
 
-                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                using (MySqlCommand cmd = new MySqlCommand(query1, connection))
                 {
                     cmd.Parameters.AddWithValue("@id", User.Id);
                     result.Result = cmd.ExecuteNonQuery() > 0;
                     result.Message = result.Result ? "Employee is deleted" : "";
                     result.Fresult = FunctionResultType.ok;
                 }
+
             }
             catch (Exception ex)
             {
@@ -245,7 +253,7 @@ namespace UTR_APP.Classes
             }
             return result;
         }
-        internal static List<UserClass> AllUsers()
+        internal static List<UserClass> AllUsers(bool loggedInUserIncluded = false)
         {
             List<UserClass> result = new List<UserClass>();
 
@@ -259,11 +267,19 @@ namespace UTR_APP.Classes
                     {
                         while (reader.Read())
                         {
-                            if (reader.GetInt32(0) != StaticDataClass.loggedInUser.Id)
+                            if (!loggedInUserIncluded)
+                            {
+                                if (reader.GetInt32(0) != StaticDataClass.loggedInUser.Id)
+                                {
+                                    result.Add(new UserClass(reader.GetInt32(0), reader.GetString(1), "hahaha_0", reader.GetInt32(3),
+                                                                       reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetInt32(7), reader.GetInt32(8), reader.GetFloat(9), reader.GetDateTime(11)));
+                                }
+                            } else
                             {
                                 result.Add(new UserClass(reader.GetInt32(0), reader.GetString(1), "hahaha_0", reader.GetInt32(3),
-                                                                   reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetInt32(7), reader.GetInt32(8), reader.GetFloat(9)));
-                            }                           
+                                                                       reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetInt32(7), reader.GetInt32(8), reader.GetFloat(9), reader.GetDateTime(11)));
+                            }
+                                                    
                         }
                     }
                 }
@@ -791,7 +807,7 @@ namespace UTR_APP.Classes
         {
             FunctionResult oneResult = new FunctionResult();
             List<FunctionResult> result = new List<FunctionResult>();
-            string query = "DELETE FROM UserFavoriteProjects WHERE userID = @userId AND projectID = @projectId;";
+            string query = "DELETE FROM userfavoriteprojects WHERE userID = @userId AND projectID = @projectId;";
 
             foreach (var item in deletedProjects)
             {
@@ -840,7 +856,7 @@ namespace UTR_APP.Classes
                     {
                         while (reader.Read())
                         {
-                            result.Add(new RegistratedTime(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetString(3), reader.GetFloat(4), reader.GetDateTime(5), Int_To_Bool(reader.GetInt32(6))));
+                            result.Add(new RegistratedTime(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetString(3), reader.GetFloat(4), reader.GetDateTime(5), Int_To_Bool(reader.GetInt32(6)), Int_To_Bool(reader.GetInt32(7))));
                         }
                     }
                 }
@@ -868,7 +884,35 @@ namespace UTR_APP.Classes
                     {
                         while (reader.Read())
                         {
-                            result.Add(new RegistratedTime(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetString(3), reader.GetFloat(4), reader.GetDateTime(5), Int_To_Bool(reader.GetInt32(6))));
+                            result.Add(new RegistratedTime(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetString(3), reader.GetFloat(4), reader.GetDateTime(5), Int_To_Bool(reader.GetInt32(6)), Int_To_Bool(reader.GetInt32(7))));
+                        }
+                    }
+                }
+            }
+            catch (Exception) { }
+            finally { connection.Close(); }
+            return result;
+        }
+
+        internal static double AllRegisteredHoursByUserFromEmplymentStart(string enddate)
+        {
+            double result = 0;
+            string query = "SELECT SUM(hours) AS total_hours FROM `registeredhours` WHERE userID = @id AND DATE(date) BETWEEN @startdate AND @enddate;";
+
+            try
+            {
+                connection.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@id", StaticDataClass.loggedInUser.Id);
+                    cmd.Parameters.AddWithValue("@startDate", StaticDataClass.loggedInUser.EmploymentStart);
+                    cmd.Parameters.AddWithValue("@enddate", enddate);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            result = reader.GetDouble(0);
                         }
                     }
                 }
@@ -897,7 +941,7 @@ namespace UTR_APP.Classes
                     {
                         while (reader.Read())
                         {
-                            result.Add(new RegistratedTime(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetString(3), reader.GetFloat(4), reader.GetDateTime(5), Int_To_Bool(reader.GetInt32(6))));
+                            result.Add(new RegistratedTime(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetString(3), reader.GetFloat(4), reader.GetDateTime(5), Int_To_Bool(reader.GetInt32(6)), Int_To_Bool(reader.GetInt32(7))));
                         }
                     }
                 }
@@ -925,7 +969,7 @@ namespace UTR_APP.Classes
                     {
                         while (reader.Read())
                         {
-                            result.Add(new RegistratedTime(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetString(3), reader.GetFloat(4), reader.GetDateTime(5), Int_To_Bool(reader.GetInt32(6))));
+                            result.Add(new RegistratedTime(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetString(3), reader.GetFloat(4), reader.GetDateTime(5), Int_To_Bool(reader.GetInt32(6)), Int_To_Bool(reader.GetInt32(7))));
                         }
                     }
                 }
@@ -952,7 +996,7 @@ namespace UTR_APP.Classes
                     {
                         while (reader.Read())
                         {
-                            result.Add(new RegistratedTime(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetString(3), reader.GetFloat(4), reader.GetDateTime(5), Int_To_Bool(reader.GetInt32(6))));
+                            result.Add(new RegistratedTime(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetString(3), reader.GetFloat(4), reader.GetDateTime(5), Int_To_Bool(reader.GetInt32(6)), Int_To_Bool(reader.GetInt32(7))));
                         }
                     }
                 }
@@ -962,22 +1006,22 @@ namespace UTR_APP.Classes
             return result;
         }
 
-        internal static List<FunctionResult> SaveUpdateHours()
+        internal static List<FunctionResult> SaveUpdateHours(List<RegistratedTime> workedHours)
         {
             FunctionResult oneResult = new FunctionResult();
             List<FunctionResult> result = new List<FunctionResult>();
             string query = string.Empty;
 
-            foreach (RegistratedTime item in StaticDataClass.workedHours)
+            foreach (RegistratedTime item in workedHours)
             {
                 bool exist = DatabaseHandlerClass.RegisteresHoursIDExists(item.Id);
                 if (exist  || item.Modified)
                 {
-                    query = "UPDATE `registeredhours` SET projectID = @project, description = @desc, hours = @hours, modified = @modified WHERE ID = @id";
+                    query = "UPDATE `registeredhours` SET projectID = @project, description = @desc, hours = @hours, modified = @modified, approved=@approved WHERE ID = @id";
                 }
                 else
                 {
-                    query = "INSERT INTO `registeredhours` (ID, userID, projectID, description, hours, date, modified) VALUES(@id, @userID, @project, @desc, @hours, @date, @modified) ";
+                    query = "INSERT INTO `registeredhours` (ID, userID, projectID, description, hours, date, modified, approved) VALUES(@id, @userID, @project, @desc, @hours, @date, @modified, @approved) ";
                 }
 
                 try
@@ -990,6 +1034,7 @@ namespace UTR_APP.Classes
                         cmd.Parameters.AddWithValue("@desc", item.Description);
                         cmd.Parameters.AddWithValue("@hours", item.Hours);
                         cmd.Parameters.AddWithValue("@modified", item.Modified);
+                        cmd.Parameters.AddWithValue("@approved", item.Approved);
                         if (exist || item.Modified)
                         {
                             cmd.Parameters.AddWithValue("@id", item.Id);
@@ -1064,6 +1109,7 @@ namespace UTR_APP.Classes
             finally { connection.Close(); }
             return result;
         }
+
         #endregion
     }
 }

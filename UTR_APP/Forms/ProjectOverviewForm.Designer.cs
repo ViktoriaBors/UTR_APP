@@ -35,6 +35,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.toDatePicker = new System.Windows.Forms.DateTimePicker();
             this.fromDatePicker = new System.Windows.Forms.DateTimePicker();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.workedHoursLBL = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnProjectID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EmployeeID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,9 +46,9 @@
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Modified = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.workedHoursLBL = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.Approved = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.selectAllBtn = new System.Windows.Forms.Button();
+            this.btnApprove = new System.Windows.Forms.Button();
             this.chartBtn = new System.Windows.Forms.Button();
             this.closeBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.allHistoryDG)).BeginInit();
@@ -67,7 +70,8 @@
             this.hours,
             this.Date,
             this.ColumnName,
-            this.Modified});
+            this.Modified,
+            this.Approved});
             this.allHistoryDG.Location = new System.Drawing.Point(12, 94);
             this.allHistoryDG.Name = "allHistoryDG";
             this.allHistoryDG.Size = new System.Drawing.Size(927, 418);
@@ -129,6 +133,37 @@
             this.fromDatePicker.Value = new System.DateTime(2024, 1, 26, 18, 25, 4, 0);
             this.fromDatePicker.ValueChanged += new System.EventHandler(this.fromDatePicker_ValueChanged);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.workedHoursLBL);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Enabled = false;
+            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox1.Location = new System.Drawing.Point(693, 518);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(246, 92);
+            this.groupBox1.TabIndex = 39;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Summary";
+            // 
+            // workedHoursLBL
+            // 
+            this.workedHoursLBL.AutoSize = true;
+            this.workedHoursLBL.Location = new System.Drawing.Point(161, 42);
+            this.workedHoursLBL.Name = "workedHoursLBL";
+            this.workedHoursLBL.Size = new System.Drawing.Size(19, 21);
+            this.workedHoursLBL.TabIndex = 31;
+            this.workedHoursLBL.Text = "0";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 42);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(149, 21);
+            this.label4.TabIndex = 22;
+            this.label4.Text = "Worked Sum Hours:";
+            // 
             // ID
             // 
             this.ID.HeaderText = "ID";
@@ -182,41 +217,42 @@
             this.Modified.Name = "Modified";
             this.Modified.ReadOnly = true;
             // 
-            // groupBox1
+            // Approved
             // 
-            this.groupBox1.Controls.Add(this.workedHoursLBL);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Enabled = false;
-            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(693, 518);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(246, 92);
-            this.groupBox1.TabIndex = 39;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Summary";
+            this.Approved.HeaderText = "Approved";
+            this.Approved.Name = "Approved";
             // 
-            // workedHoursLBL
+            // selectAllBtn
             // 
-            this.workedHoursLBL.AutoSize = true;
-            this.workedHoursLBL.Location = new System.Drawing.Point(161, 42);
-            this.workedHoursLBL.Name = "workedHoursLBL";
-            this.workedHoursLBL.Size = new System.Drawing.Size(19, 21);
-            this.workedHoursLBL.TabIndex = 31;
-            this.workedHoursLBL.Text = "0";
+            this.selectAllBtn.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.selectAllBtn.Image = global::UTR_APP.Properties.Resources.list__1_;
+            this.selectAllBtn.Location = new System.Drawing.Point(835, 65);
+            this.selectAllBtn.Name = "selectAllBtn";
+            this.selectAllBtn.Size = new System.Drawing.Size(104, 23);
+            this.selectAllBtn.TabIndex = 42;
+            this.selectAllBtn.Text = "Select All";
+            this.selectAllBtn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.selectAllBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.selectAllBtn.UseVisualStyleBackColor = true;
+            this.selectAllBtn.Click += new System.EventHandler(this.selectAllBtn_Click);
             // 
-            // label4
+            // btnApprove
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 42);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(149, 21);
-            this.label4.TabIndex = 22;
-            this.label4.Text = "Worked Sum Hours:";
+            this.btnApprove.Image = global::UTR_APP.Properties.Resources.approval;
+            this.btnApprove.Location = new System.Drawing.Point(12, 518);
+            this.btnApprove.Name = "btnApprove";
+            this.btnApprove.Size = new System.Drawing.Size(151, 38);
+            this.btnApprove.TabIndex = 41;
+            this.btnApprove.Text = "Approve";
+            this.btnApprove.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnApprove.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnApprove.UseVisualStyleBackColor = true;
+            this.btnApprove.Click += new System.EventHandler(this.btnApprove_Click);
             // 
             // chartBtn
             // 
             this.chartBtn.Image = global::UTR_APP.Properties.Resources.bar_chart;
-            this.chartBtn.Location = new System.Drawing.Point(788, 39);
+            this.chartBtn.Location = new System.Drawing.Point(788, 18);
             this.chartBtn.Name = "chartBtn";
             this.chartBtn.Size = new System.Drawing.Size(151, 38);
             this.chartBtn.TabIndex = 40;
@@ -245,6 +281,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(961, 634);
+            this.Controls.Add(this.selectAllBtn);
+            this.Controls.Add(this.btnApprove);
             this.Controls.Add(this.chartBtn);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.closeBtn);
@@ -278,6 +316,11 @@
         private System.Windows.Forms.DateTimePicker toDatePicker;
         private System.Windows.Forms.DateTimePicker fromDatePicker;
         private System.Windows.Forms.Button closeBtn;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label workedHoursLBL;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button chartBtn;
+        private System.Windows.Forms.Button btnApprove;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnProjectID;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeID;
@@ -286,9 +329,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Modified;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label workedHoursLBL;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button chartBtn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Approved;
+        private System.Windows.Forms.Button selectAllBtn;
     }
 }

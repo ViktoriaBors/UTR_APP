@@ -48,6 +48,7 @@
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.workedHoursLbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.timeRegDG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -122,7 +123,7 @@
             this.errorLbl.AutoSize = true;
             this.errorLbl.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.errorLbl.ForeColor = System.Drawing.Color.IndianRed;
-            this.errorLbl.Location = new System.Drawing.Point(8, 537);
+            this.errorLbl.Location = new System.Drawing.Point(12, 572);
             this.errorLbl.Name = "errorLbl";
             this.errorLbl.Size = new System.Drawing.Size(51, 20);
             this.errorLbl.TabIndex = 17;
@@ -131,7 +132,7 @@
             // closeBtn
             // 
             this.closeBtn.Image = global::UTR_APP.Properties.Resources.logout;
-            this.closeBtn.Location = new System.Drawing.Point(12, 573);
+            this.closeBtn.Location = new System.Drawing.Point(12, 595);
             this.closeBtn.Name = "closeBtn";
             this.closeBtn.Size = new System.Drawing.Size(151, 38);
             this.closeBtn.TabIndex = 16;
@@ -144,7 +145,7 @@
             // saveBtn
             // 
             this.saveBtn.Image = global::UTR_APP.Properties.Resources.floppy_disk;
-            this.saveBtn.Location = new System.Drawing.Point(619, 573);
+            this.saveBtn.Location = new System.Drawing.Point(619, 595);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(147, 38);
             this.saveBtn.TabIndex = 15;
@@ -259,12 +260,24 @@
             this.label5.TabIndex = 22;
             this.label5.Text = "Double click on a cell to edit hours";
             // 
+            // workedHoursLbl
+            // 
+            this.workedHoursLbl.AutoSize = true;
+            this.workedHoursLbl.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.workedHoursLbl.ForeColor = System.Drawing.Color.Black;
+            this.workedHoursLbl.Location = new System.Drawing.Point(12, 539);
+            this.workedHoursLbl.Name = "workedHoursLbl";
+            this.workedHoursLbl.Size = new System.Drawing.Size(108, 20);
+            this.workedHoursLbl.TabIndex = 23;
+            this.workedHoursLbl.Text = "[worked hours]";
+            // 
             // TimeRegistrationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(778, 623);
+            this.ClientSize = new System.Drawing.Size(778, 644);
+            this.Controls.Add(this.workedHoursLbl);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.numericUpDown1);
@@ -315,5 +328,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn hours;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label workedHoursLbl;
     }
 }

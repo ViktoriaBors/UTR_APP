@@ -16,6 +16,8 @@ namespace UTR_APP.Forms
             errorLbl.Text = string.Empty;
             deleteBtn.Enabled = false;
             deleteBtn.Visible = false;
+            dateTimePicker1.MinDate = DateTime.Now;
+            dateTimePicker1.Value = DateTime.Now;
             ComboBox_Data_Upload();
         }
 
@@ -43,6 +45,9 @@ namespace UTR_APP.Forms
             generateBtn.Enabled = false;
             numericUpDown1.Value = (decimal)User.HoursFromPrevSystem;
             numericUpDown1.Enabled = false;
+            dateTimePicker1.MinDate = User.EmploymentStart;
+            dateTimePicker1.Value = User.EmploymentStart;
+            dateTimePicker1.Enabled = false;
         }
 
         private void ComboBox_Data_Upload()
@@ -140,7 +145,8 @@ namespace UTR_APP.Forms
             {
                 try
                 {
-                    User = new UserClass(emplyeeIDTB.Text, passwordTB.Text, (int)roleTypesCB.SelectedValue, fullNameTB.Text, (int)departmentCB.SelectedValue, (int)emplTypeCB.SelectedValue, (float)numericUpDown1.Value);
+                    DateTime startDate = new DateTime(dateTimePicker1.Value.Year, dateTimePicker1.Value.Month, dateTimePicker1.Value.Day);
+                    User = new UserClass(emplyeeIDTB.Text, passwordTB.Text, (int)roleTypesCB.SelectedValue, fullNameTB.Text, (int)departmentCB.SelectedValue, (int)emplTypeCB.SelectedValue, (float)numericUpDown1.Value, startDate);
                     FunctionResult existingEmplID = DatabaseHandlerClass.UserExists(emplyeeIDTB.Text);
                     if (existingEmplID.Result)
                     {

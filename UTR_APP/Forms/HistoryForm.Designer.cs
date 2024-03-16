@@ -214,7 +214,7 @@
             this.groupBox1.Size = new System.Drawing.Size(744, 112);
             this.groupBox1.TabIndex = 33;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Summary";
+            this.groupBox1.Text = "Summary in whole period";
             // 
             // baseHoursLBL
             // 

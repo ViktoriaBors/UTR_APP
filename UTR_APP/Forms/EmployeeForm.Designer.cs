@@ -31,6 +31,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.fullNameTB = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
             this.roleTypesCB = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.departmentCB = new System.Windows.Forms.ComboBox();
@@ -48,11 +50,11 @@
             this.button3 = new System.Windows.Forms.Button();
             this.errorLbl = new System.Windows.Forms.Label();
             this.deleteBtn = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label2
@@ -74,6 +76,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.dateTimePicker1);
+            this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.numericUpDown1);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.roleTypesCB);
@@ -87,10 +91,33 @@
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(400, 302);
+            this.groupBox1.Size = new System.Drawing.Size(400, 342);
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Employment Information:";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.DecimalPlaces = 2;
+            this.numericUpDown1.Location = new System.Drawing.Point(182, 307);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(160, 29);
+            this.numericUpDown1.TabIndex = 17;
+            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(21, 283);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(239, 21);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "Flex hours from previous system:";
             // 
             // roleTypesCB
             // 
@@ -250,7 +277,7 @@
             // 
             this.errorLbl.AutoSize = true;
             this.errorLbl.ForeColor = System.Drawing.Color.DarkRed;
-            this.errorLbl.Location = new System.Drawing.Point(12, 317);
+            this.errorLbl.Location = new System.Drawing.Point(12, 357);
             this.errorLbl.Name = "errorLbl";
             this.errorLbl.Size = new System.Drawing.Size(52, 21);
             this.errorLbl.TabIndex = 19;
@@ -269,28 +296,22 @@
             this.deleteBtn.UseVisualStyleBackColor = true;
             this.deleteBtn.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label7
+            // label8
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(21, 233);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(239, 21);
-            this.label7.TabIndex = 16;
-            this.label7.Text = "Flex hours from previous system:";
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(21, 227);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(173, 21);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "Employment Start Date:";
             // 
-            // numericUpDown1
+            // dateTimePicker1
             // 
-            this.numericUpDown1.DecimalPlaces = 2;
-            this.numericUpDown1.Location = new System.Drawing.Point(182, 257);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(160, 29);
-            this.numericUpDown1.TabIndex = 17;
-            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePicker1.Location = new System.Drawing.Point(186, 250);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(156, 29);
+            this.dateTimePicker1.TabIndex = 19;
             // 
             // EmployeeForm
             // 
@@ -311,9 +332,9 @@
             this.Text = "Add new employee details";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -343,5 +364,7 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.Label label8;
     }
 }

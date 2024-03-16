@@ -15,8 +15,9 @@ namespace UTR_APP.Classes
         string description;
         DateTime date;
         bool modified;
+        bool approved;
 
-        public RegistratedTime(int id, int userID, int projectID, string description, float hours, DateTime created, bool modified)
+        public RegistratedTime(int id, int userID, int projectID, string description, float hours, DateTime created, bool modified, bool approved)
         {
             Id = id;
             UserID = userID;
@@ -25,6 +26,7 @@ namespace UTR_APP.Classes
             Description = description;
             Date = new DateTime(created.Year, created.Month, created.Day);
             Modified = modified;
+            Approved = approved;
         }
 
         public int Id { get => id; set => id = value; }
@@ -48,7 +50,6 @@ namespace UTR_APP.Classes
         public DateTime Date { get => date; set => date = value; }
         public string Description { get => description; set => description = value; }
         public bool Modified { get => modified; set => modified = value; }
-
-        
+        public bool Approved { get => approved; set => approved = value; }
     }
 }

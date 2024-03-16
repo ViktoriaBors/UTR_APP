@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
+using System.Xml;
 
 
 namespace UTR_APP.Classes
@@ -21,6 +22,7 @@ namespace UTR_APP.Classes
         int deparmentId;
         int employmentId;
         float hoursFromPrevSystem;
+        DateTime employmentStart;
         public ICollection<UserFavoriteProject> FavoriteProjects { get; set; }
 
         bool passwordHasBeenChanged;
@@ -81,9 +83,9 @@ namespace UTR_APP.Classes
         public int DeparmentId { get => deparmentId; set => deparmentId = value; }
         public int EmploymentId { get => employmentId; set => employmentId = value; }
         public float HoursFromPrevSystem { get => hoursFromPrevSystem; set => hoursFromPrevSystem = value; }
+        public DateTime EmploymentStart { get => employmentStart; set => employmentStart = value; }
 
-
-        public UserClass(string employeeID, string password, int roleId, string name, int deparmentId, int employmentId, float hoursFromPrevSystem)
+        public UserClass(string employeeID, string password, int roleId, string name, int deparmentId, int employmentId, float hoursFromPrevSystem, DateTime employmentStart)
         { // first time the admin register a new employee
             EmployeeID = employeeID;
             Password = password;
@@ -92,9 +94,10 @@ namespace UTR_APP.Classes
             DeparmentId = deparmentId;
             EmploymentId = employmentId;
             HoursFromPrevSystem = hoursFromPrevSystem;
+            EmploymentStart = employmentStart;
         }
 
-        public UserClass(int id, string employeeID, string password, int roleId, string name, string address, string email, int deparmentId, int employmentId, float hoursFromPrevSystem) // int timeRegTypeId)
+        public UserClass(int id, string employeeID, string password, int roleId, string name, string address, string email, int deparmentId, int employmentId, float hoursFromPrevSystem, DateTime employmentStart) // int timeRegTypeId)
         { // creating the employee from the database
             Id = id;
             EmployeeID = employeeID;
@@ -106,6 +109,7 @@ namespace UTR_APP.Classes
             DeparmentId = deparmentId;
             EmploymentId = employmentId;
             HoursFromPrevSystem = hoursFromPrevSystem;
+            EmploymentStart = employmentStart;
         }
     }
 }

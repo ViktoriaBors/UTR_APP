@@ -28,6 +28,7 @@ namespace UTR_APP.Classes
         public static List<UserFavoriteProject> favoriteProjects =new List<UserFavoriteProject>();
 
         public static List<RegistratedTime> workedHours = new List<RegistratedTime>();
+        public static double workedHoursFromEmplymentStart = 0;
 
         public static UserClass loggedInUser;
         public static float UsersFlexHoursFromPrevSystem = 0;
@@ -70,6 +71,17 @@ namespace UTR_APP.Classes
                 return string.Empty;
             }
 
+        }
+
+        internal static void SelectAllForApproval(List<RegistratedTime> workedHours)
+        {
+            foreach (RegistratedTime time in workedHours)
+            {
+                if (!time.Approved)
+                {
+                    time.Approved = true;
+                }
+            }
         }
     }
 

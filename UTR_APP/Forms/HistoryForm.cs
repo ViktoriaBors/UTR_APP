@@ -62,26 +62,13 @@ namespace UTR_APP.Forms
             int workingDays = Count_WorkingDays();
             allBaseHoursInPeriod = Calculate_BaseHours(workingDays,StaticDataClass.baseHoursPerday);
 
-            allWorkedHoursInPeriod = Calculate_ActualWorkedHours(StaticDataClass.workedHours);
+            allWorkedHoursInPeriod = Calculate_ActualWorkedHours();
             allOvertimeHoursInPeriod = allWorkedHoursInPeriod - allBaseHoursInPeriod;   
         }
 
-        private float Calculate_ActualWorkedHours(List<RegistratedTime> registrations)
-        {
-            float actualWorkedHours = StaticDataClass.UsersFlexHoursFromPrevSystem;
-
-            foreach (RegistratedTime registration in registrations)
-            {
-                if (registration.Date >= startDate && registration.Date <= endDate)
-                {
-                    actualWorkedHours += registration.Hours;
-                }
-                else
-                {
-                    actualWorkedHours = registration.Hours;
-                }
-            }
-            return actualWorkedHours;
+        private float Calculate_ActualWorkedHours()
+        {           
+            return (float)StaticDataClass.UsersFlexHoursFromPrevSystem + (float)StaticDataClass.workedHoursFromEmplymentStart;
         }
 
         private float Calculate_BaseHours(int workingDays, float baseHoursPerDay)
@@ -92,7 +79,7 @@ namespace UTR_APP.Forms
         private int Count_WorkingDays()
         {
             int workingDays = 0;
-            DateTime currentDate = startDate;
+            DateTime currentDate = StaticDataClass.loggedInUser.EmploymentStart;
 
             while (currentDate <= endDate)
             {
@@ -118,6 +105,7 @@ namespace UTR_APP.Forms
             endDate = ((DateTimePicker)sender).Value;
             projectCB.SelectedIndex = 0;
             StaticDataClass.workedHours = DatabaseHandlerClass.AllRegisteredHoursByUser(StaticDataClass.DateTime_Converter(startDate), StaticDataClass.DateTime_Converter(endDate));
+            StaticDataClass.workedHoursFromEmplymentStart = DatabaseHandlerClass.AllRegisteredHoursByUserFromEmplymentStart(StaticDataClass.DateTime_Converter(endDate));
             UI_Update() ;
         }
 

@@ -411,6 +411,9 @@
     <None Include="Resources\delete-button %281%29.png" />
     <None Include="Resources\delete-button %282%29.png" />
     <None Include="Resources\bar-chart.png" />
+    <None Include="Resources\approval.png" />
+    <None Include="Resources\list.png" />
+    <None Include="Resources\list %281%29.png" />
     <Content Include="Resources\magic-wand.png" />
     <None Include="Resources\magic-wand1.png" />
   </ItemGroup>
